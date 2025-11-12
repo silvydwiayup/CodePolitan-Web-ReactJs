@@ -5,17 +5,24 @@ import MenuMinuman from './components/MenuMinuman/MenuMinuman';
 
 function App() {
 
-  const [namaResto, setNamaResto] = useState('namaResto');
+  var [namaResto, setNamaResto] = useState('');
   var data = "Cafe and Resto CodePolitan";
   
   useEffect(() => {
     setNamaResto(data)
   },[]);
 
+  var handleGantiResto = (props) => {
+    setNamaResto(props);
+  };
+
+
+
   return (
     <>
       <div className="App">
         <h1>{namaResto}</h1>
+        <button onClick={() => handleGantiResto ('Programming')}>Ganti Nama Resto</button>
         <h2>Menu Makanan</h2>
         <MenuMakanan namaMenu={'Ayam Bakar'} hargaMenu={'Rp 25.000'}/>
 
