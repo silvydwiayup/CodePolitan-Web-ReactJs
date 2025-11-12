@@ -1,13 +1,21 @@
+import { useState,useEffect } from "react";
 import './App.css'
 import MenuMakanan from './components/MenuMakanan/MenuMakanan';
 import MenuMinuman from './components/MenuMinuman/MenuMinuman';
 
 function App() {
 
+  const [namaResto, setNamaResto] = useState('namaResto');
+  var data = "Cafe and Resto CodePolitan";
+  
+  useEffect(() => {
+    setNamaResto(data)
+  },[]);
+
   return (
     <>
       <div className="App">
-        <h1>Cafe and Resto Codepolitan</h1>
+        <h1>{namaResto}</h1>
         <h2>Menu Makanan</h2>
         <MenuMakanan namaMenu={'Ayam Bakar'} hargaMenu={'Rp 25.000'}/>
 
