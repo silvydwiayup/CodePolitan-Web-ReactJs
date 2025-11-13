@@ -1,7 +1,28 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
+import axios from 'axios'
 
 function App() {
+
+  var [users, setUsers] = useState(null)
+
+  async function getUser() {
+    try {
+      const response = await axios.get('https://65f45089f54db27bc021609a.mockapi.io/users');
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  
+  useEffect (() => {
+    async function fetchData() {
+      const users = await getUser();
+      setUsers(users);
+    }
+    
+    fetchData();
+  },[]);
 
   return (
     <div className="container">
@@ -10,19 +31,26 @@ function App() {
           <div className="col-6" style={{ border: '1px solid black'}}>
             <h2>Member</h2>
             <div className="row" >
-            
-              <div className="col-md-6">
-                <div className="card" style={{ margin: 10}}>
-                  <div className="card-body">
-                  <h5 className="card-title">ID MEMBER</h5>
-                    <h5 className="card-title">First Name</h5>
-                    <h5 className="card-title">Last Name</h5>
-                    <button className="btn btn-primary">Edit</button>
-                    <button className="btn btn-danger">Delete</button>
-                  </div>
-                </div>
-              </div>
-
+              {
+                users != null ? 
+                  users.map((data) =>
+                    <div className="col-md-6" key={data.id}>
+                      <div className="card" style={{ margin: 10}}>
+                        <div className="card-body">
+                        <h5 className="card-title">{data.id}</h5>
+                          <h5 className="card-title">{data.firstName}</h5>
+                          <h5 className="card-title">{data.lastName}</h5>
+                          <button className="btn btn-primary">Edit</button>
+                          <button className="btn btn-danger">Delete</button>
+                        </div>
+                      </div>
+                    </div> 
+                  )
+              : null
+              
+              }
+              
+              
             </div>
           </div>
           
