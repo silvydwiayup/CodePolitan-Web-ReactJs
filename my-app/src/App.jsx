@@ -16,8 +16,8 @@ function App() {
       ],
       minuman :
       [
-        {'namaMinuman' : 'Jus Jeruk', 'hargaMinuman' : 12000, 'stock' : 12},
-        {'namaMinuman' : 'Esteh Manis', 'hargaMinuman' : 7000, 'stock' : 15},
+        {'id' : 1, 'namaMinuman' : 'Jus Jeruk', 'hargaMinuman' : 12000, 'stock' : 12},
+        {'id' : 2, 'namaMinuman' : 'Esteh Manis', 'hargaMinuman' : 7000, 'stock' : 15},
       ]
     }
     
@@ -42,8 +42,8 @@ function App() {
         <MenuMakanan namaMenu={namaMenu.makanan[1].namaMakanan} hargaMenu={namaMenu.makanan[1].hargaMenu} stockMenu= {namaMenu.makanan[1].stock}/>
 
         <h2>Menu Minuman</h2>
-        {namaMenu.minuman.map((minuman, index) => 
-          <MenuMinuman key={index} namaMinuman={minuman.namaMinuman} hargaMinuman={minuman.hargaMinuman}/>
+        {namaMenu.minuman.map((minuman) => 
+          <MenuMinuman key={minuman.id} namaMinuman={minuman.namaMinuman} hargaMinuman={minuman.hargaMinuman}/>
         )}
       </div>
     </>
