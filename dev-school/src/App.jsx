@@ -5,6 +5,8 @@ import axios from 'axios'
 function App() {
 
   var [users, setUsers] = useState(null)
+  var [firstName, setFirstName] = useState('')
+  var [lastName, setLastName] = useState('')
 
   async function getUser() {
     try {
@@ -23,6 +25,29 @@ function App() {
     
     fetchData();
   },[]);
+
+  async function postUser(newUser) {
+    try {
+      const response = await axios.post('https://65f45089f54db27bc021609a.mockapi.io/users',
+        newUser
+      );
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  async function handleBtnSubmit(e) {
+    e.preventDefault();
+
+    var newUser = {firstName, lastName}
+
+    var user = await postUser(newUser);
+    setUsers([...users, user]);
+  }
+    
+
+  
 
   return (
     <div className="container">
@@ -58,12 +83,14 @@ function App() {
 
           <div className="col-6" style={{ border: '1px solid black'}}>
             <h2>Form</h2>
-            <form>
+            <form onSubmit={handleBtnSubmit}>
               <div className="form-group">
                 <label>First Name</label>
                 <input 
                   type="text" 
                   className="form-control"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                 />
               </div>
               <div className="form-group">
@@ -71,6 +98,8 @@ function App() {
                 <input 
                   type="text" 
                   className="form-control" 
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                 />
               </div>
               <button type="submit" className="btn btn-primary">Submit</button>
