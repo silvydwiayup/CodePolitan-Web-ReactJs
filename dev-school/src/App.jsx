@@ -8,6 +8,7 @@ function App() {
   var [firstName, setFirstName] = useState('')
   var [lastName, setLastName] = useState('')
   var [editUser, setEditUser] = useState(null)
+  var [selectedUser, setSelectedUser] = useState(null)
 
   async function getUser() {
     try {
@@ -81,7 +82,19 @@ function App() {
     setLastName('');
   }
 
+  async function deleteUser(id) {
+    try {
+      const response = await axios.delete(`https://65f45089f54db27bc021609a.mockapi.io/users/${id}`);
+      
+      setUsers(prevUsers => prevUsers.filter(user => user.id !== id )
+      );
 
+      return response.data;
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   
 
@@ -102,7 +115,7 @@ function App() {
                           <h5 className="card-title">{data.firstName}</h5>
                           <h5 className="card-title">{data.lastName}</h5>
                           <button className="btn btn-primary" onClick={() => handleEditForm(data)}>Edit</button>
-                          <button className="btn btn-danger">Delete</button>
+                          <button className="btn btn-danger" onClick={()=> deleteUser(data.id)}>Delete</button>
                         </div>
                       </div>
                     </div> 
