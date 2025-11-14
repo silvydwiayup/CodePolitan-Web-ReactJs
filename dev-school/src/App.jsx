@@ -4,9 +4,10 @@ import axios from 'axios'
 
 function App() {
 
-  var [users, setUsers] = useState(null)
+  var [users, setUsers] = useState([])
   var [firstName, setFirstName] = useState('')
   var [lastName, setLastName] = useState('')
+  var [editUser, setEditUser] = useState(null)
 
   async function getUser() {
     try {
@@ -45,7 +46,42 @@ function App() {
     var user = await postUser(newUser);
     setUsers([...users, user]);
   }
-    
+  
+  async function putUser(id, updateData) {
+    try {
+      const response = await axios.put(`https://65f45089f54db27bc021609a.mockapi.io/users/${id}`,
+        updateData
+      );
+      
+      setUsers(prevUsers => 
+        prevUsers.map(user => user.id === id ? response.data : user)
+      );
+
+      return response.data;
+
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  function handleEditForm(user){
+    setEditUser(user.id);
+    setFirstName(user.firstName);
+    setLastName(user.lastName);
+  }
+
+  async function handleEditBtn(e){
+    e.preventDefault();
+    if(!editUser) return;
+
+    await putUser(editUser, {firstName, lastName});
+
+    setEditUser(null);
+    setFirstName('');
+    setLastName('');
+  }
+
+
 
   
 
@@ -65,7 +101,7 @@ function App() {
                         <h5 className="card-title">{data.id}</h5>
                           <h5 className="card-title">{data.firstName}</h5>
                           <h5 className="card-title">{data.lastName}</h5>
-                          <button className="btn btn-primary">Edit</button>
+                          <button className="btn btn-primary" onClick={() => handleEditForm(data)}>Edit</button>
                           <button className="btn btn-danger">Delete</button>
                         </div>
                       </div>
@@ -102,7 +138,7 @@ function App() {
                   onChange={(e) => setLastName(e.target.value)}
                 />
               </div>
-              <button type="submit" className="btn btn-primary">Submit</button>
+              <button type="submit" className="btn btn-primary">{editUser ? 'Update' : 'Submit'}</button>
             </form>
           </div>
         </div>
