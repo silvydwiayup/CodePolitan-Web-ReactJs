@@ -4,13 +4,14 @@ import { Link } from "react-router-dom";
 
 import './App.css'
 import Home from './pages/Home';
+import Premium from './pages/Premium';
 
 function App() {
 
   return (
     <Router>
-      <div>
-          <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <div style={{ paddingTop: 60}}>
+          <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
               <Link className="navbar-brand mx-5" to="/">Codepolitan</Link>
               <div className="navbar-nav">
                   <Link className="nav-item nav-link" to="/">Home</Link>
@@ -20,7 +21,7 @@ function App() {
           </nav>
           <Routes>
             <Route path='/' element={<Home/>}/>
-            <Route path='/premium' element={<h4>Premium</h4>}/>
+            <Route path='/premium' element={<Premium/>}/>
             <Route path='/devschool' element={<h4>DevSchool</h4>}/>
           </Routes>
           
