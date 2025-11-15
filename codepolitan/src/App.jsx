@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import './App.css'
 import Home from './pages/Home';
 import Premium from './pages/Premium';
+import DevSchool from './pages/DevSchool';
 
 function App() {
 
@@ -22,7 +23,7 @@ function App() {
           <Routes>
             <Route path='/' element={<Home/>}/>
             <Route path='/premium' element={<Premium/>}/>
-            <Route path='/devschool' element={<h4>DevSchool</h4>}/>
+            <Route path='/devschool' element={<DevSchool/>}/>
           </Routes>
           
       </div>

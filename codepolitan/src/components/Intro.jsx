@@ -18,7 +18,7 @@ const styles = {
         color: '#808080',
         fontSize: 21,
         textAlign: 'justify'
-    }
+    },
 }
 
 
