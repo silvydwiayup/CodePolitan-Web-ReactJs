@@ -8,9 +8,30 @@ var initialState = {
 };
 
 const rootReducer = (state = initialState, action) => {
-    return state
+    switch (action.type){
+        case 'LOGIN_SUCCESS' :
+            return {
+                ...state,
+                loggedIn: true,
+                username: action.payload.username
+            }
+        default:
+            return state;
+    }
 };
 
 const store = createStore(rootReducer);
 
-console.log(store.getState());
+store.subscribe( () => {
+    console.log('subscription', store.getState())
+});
+
+var actionLoginSuccess = {
+    type: 'LOGIN_SUCCESS',
+    payload: {username: 'Andrea'}
+};
+
+store.dispatch(actionLoginSuccess);
+
+
+console.log('after dispatch' , store.getState());
